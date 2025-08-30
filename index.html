@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESPACIO</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url(images/espacioTomas.jpg);
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        /* Overlay para mejorar legibilidad del texto */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        h1 {
+            font-size: 4em;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        h2{
+            font-size: 2em;
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            letter-spacing: 8px;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            color: #b3c7f7;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .constellation-card {
+            display: flex;
+            align-items: center;
+            margin: 60px 0;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .constellation-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+        }
+
+        .constellation-image {
+            flex: 1;
+            height: 300px;
+            background-size: contain; /* ← AQUÍ está el contain */
+            background-repeat: no-repeat;
+            background-position: center;
+            position: relative;
+        }
+
+        .constellation-info {
+            flex: 1;
+            padding: 40px;
+            background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+        }
+
+        .constellation-name {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .constellation-description {
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #e3f2fd;
+        }
+
+        /* Alternando posiciones */
+        .constellation-card.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .constellation-card.reverse .constellation-info {
+            background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+        }
+
+        /* Imágenes de fondo para cada constelación */
+        .ursa-major { background-image: url(images/osamayor2.avif); }
+        .orion { background-image: url(images/orion.jpg); }
+        .cassiopeia { background-image: url(images/casiopea.webp); }
+        .southern-cross { background-image: url(images/crux-constelacao.jpg); }
+        .scorpius { background-image: url(images/scorpius.avif); }
+        .luminica { background-image: url(images/contaminacionLuminica.webp); }
+        .sinluminica { background-image: url(images/cielo-1.jpg); }
+        .stelarium { background-image: url(images/Captura\ de\ pantalla\ 2025-08-23\ 122948.png); }
+        
+
+        /* Efecto de overlay en las imágenes */
+        .constellation-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            margin-top: 60px;
+        }
+        
+        .logo{
+            display: flex;
+            align-items: flex-start;
+            height: 150px;
+            width: 150px;
+        }
+
+        .logo {
+        /* Posiciona el logo absolutamente dentro del header */
+        position: absolute;
+        /* Lo mueve a la derecha del contenedor padre */
+        left: 20px; 
+        /* Lo alinea verticalmente en el centro */
+        top: 50%;
+        /* Compensa la mitad de su propia altura para un centrado perfecto */
+        transform: translateY(-50%); 
+        
+        /* Hacemos el logo responsive */
+        max-width: 150px; /* Tamaño máximo para evitar que sea muy grande */
+        height: auto; /* Mantiene la proporción de la imagen */
+        }
+
+        @media (max-width: 768px) {
+            .constellation-card {
+                flex-direction: column !important;
+                margin: 40px 0;
+            }
+
+            .constellation-card.reverse {
+                flex-direction: column !important;
+            }
+
+            .constellation-image {
+                height: 200px;
+                width: 100%;
+            }
+
+            .constellation-info {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2.5em;
+                letter-spacing: 4px;
+            }
+
+            .constellation-name {
+                font-size: 2em;
+            }
+            
+            .logo {
+            max-width: 100px; /* Reduce el tamaño del logo en móviles */
+            right: 10px; /* Reduce el margen derecho en pantallas más pequeñas */
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Stem</h1>
+        <img src="images/WhatsApp Image 2025-08-30 at 17.10.42_417c5b62.jpg" alt="logo" class="logo">
+        <p class="subtitle">Un cielo limpio nos devuelve la magia de las constelaciones</p>
+    </header>
+
+    <div class="container">
+        <!-- Osa Mayor -->
+        <div class="constellation-card">
+            <div class="constellation-image ursa-major"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Osa Mayor</h2>
+                <p class="constellation-description">
+                    La Osa Mayor es una de las constelaciones más reconocibles del hemisferio norte. También conocida como "El Carro" o "El Gran Cucharón", contiene siete estrellas brillantes que forman una figura distintiva. Es visible durante todo el año desde latitudes septentrionales y ha sido utilizada para la navegación durante milenios. La constelación apunta hacia la Estrella Polar, lo que la convierte en una herramienta fundamental para encontrar el norte.
+                </p>
+            </div>
+        </div>
+
+        <!-- Orión -->
+        <div class="constellation-card reverse">
+            <div class="constellation-image orion"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Orión</h2>
+                <p class="constellation-description">
+                    Orión, el cazador celestial, es una de las constelaciones más espectaculares y fáciles de identificar. Su característica más distintiva es el "Cinturón de Orión", formado por tres estrellas alineadas: Alnitak, Alnilam y Mintaka. La constelación contiene estrellas súper gigantes como Betelgeuse y Rigel, y la famosa Nebulosa de Orión, una región de formación estelar visible incluso con telescopios pequeños.
+                </p>
+            </div>
+        </div>
+
+        <!-- Casiopea -->
+        <div class="constellation-card">
+            <div class="constellation-image cassiopeia"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Casiopea</h2>
+                <p class="constellation-description">
+                    Casiopea es fácilmente reconocible por su forma distintiva de "W" o "M" dependiendo de su posición en el cielo. Esta constelación circumpolar del hemisferio norte es visible durante todo el año desde latitudes medias y altas del norte. Representa a la reina vanidosa de la mitología griega y contiene varias estrellas variables y cúmulos estelares interesantes para la observación astronómica.
+                </p>
+            </div>
+        </div>
+
+        <!-- Cruz del Sur -->
+        <div class="constellation-card reverse">
+            <div class="constellation-image southern-cross"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Crux del Sur</h2>
+                <p class="constellation-description">
+                    La Cruz del Sur es la constelación más pequeña de las 88 constelaciones modernas, pero también una de las más distintivas del hemisferio sur. Formada por cuatro estrellas principales que forman una cruz, ha sido utilizada durante siglos por navegantes del hemisferio sur para encontrar el polo sur celeste. Es un símbolo nacional en varios países del sur y aparece en múltiples banderas nacionales.
+                </p>
+            </div>
+        </div>
+
+        <!-- Escorpio -->
+        <div class="constellation-card">
+            <div class="constellation-image scorpius"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Escorpio</h2>
+                <p class="constellation-description">
+                    Escorpio es una constelación zodiacal que realmente se parece a su nombre: un escorpión. Su estrella más brillante, Antares, es una súper gigante roja que rivaliza en brillo con el planeta Marte. La constelación es más visible durante los meses de verano en el hemisferio norte y contiene numerosos cúmulos estelares y nebulosas, incluyendo el cúmulo mariposa y la nebulosa de la garra del escorpión.
+                </p>
+            </div>
+        </div>
+
+        <div class="constellation-card reverse">
+            <div class="constellation-image luminica"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Contaminacion Luminica</h2>
+                <p class="constellation-description">
+                    las luces artificiales de las ciudades afectan a la observación del cielo, reduce la visibilidad de las estrellas ya que las luces artificiales reduce el contraste entre el cielo y los astros.
+                    También reduce la calidad de vision de los telescopios científicos, obligandolos a construir estos en lugares aislados.
+                    Tambien hace que los eventos nocturnos como las auroras boreales sean menos visibles
+                </p>
+            </div>
+        </div>
+
+        <div class="constellation-card">
+            <div class="constellation-image sinluminica"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Sin contaminacion luminica</h2>
+                <p class="constellation-description">
+                    Sin la interferencia de las luces artificiales, podríamos disfrutar de la belleza del cosmos en su máximo esplendor. Sería posible distinguir estrellas débiles y objetos celestes como nebulosas y galaxias que actualmente se ocultan bajo el brillo de las ciudades. 
+                </p>
+            </div>
+        </div>
+
+        <div class="constellation-card reverse">
+            <div class="constellation-image stelarium"></div>
+            <div class="constellation-info">
+                <h2 class="constellation-name">Stellarium</h2>
+                <p class="constellation-description">
+                    Stellarium es un software libre que te permite observar todo el cielo estrellado de manera realista.
+                    link pagina web:<a href="https://stellarium-web.org/" target="_blank">https://stellarium-web.org/</a>
+                    link de descarga de diferentes dispositivos: <a href="https://stellarium.org/" target="_blank">https://stellarium.org/</a>
+                </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 ESPACIO - Página Educativa sobre Constelaciones</p>
+    </footer>
+</body>
+</html>
