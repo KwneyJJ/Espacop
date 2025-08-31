@@ -21,6 +21,7 @@
             background-position: center;
             color: white;
             overflow-x: hidden;
+            min-height: 100vh;
         }
 
         /* Overlay para mejorar legibilidad del texto */
@@ -38,46 +39,55 @@
 
         header {
             text-align: center;
-            padding: 20px 20px;
+            padding: 20px;
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
             position: relative;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
         h1 {
-            font-size: 4em;
+            font-size: clamp(2rem, 8vw, 4rem);
             font-weight: bold;
             color: #ffffff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            letter-spacing: 8px;
-            margin-bottom: 20px;
+            letter-spacing: clamp(2px, 1vw, 8px);
+            margin-bottom: 10px;
+            z-index: 2;
         }
 
-        h2{
-            font-size: 2em;
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2rem);
             font-weight: bold;
             color: #ffffff;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            letter-spacing: 8px;
+            letter-spacing: clamp(1px, 0.5vw, 4px);
             margin-bottom: 20px;
         }
 
         .subtitle {
-            font-size: 1.2em;
+            font-size: clamp(0.9rem, 2.5vw, 1.2rem);
             color: #b3c7f7;
             margin-bottom: 20px;
+            z-index: 2;
+            max-width: 90%;
+            text-align: center;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .constellation-card {
             display: flex;
-            align-items: center;
-            margin: 60px 0;
+            align-items: stretch;
+            margin: 40px 0;
             background: rgba(0, 0, 0, 0.4);
             border-radius: 20px;
             overflow: hidden;
@@ -85,17 +95,18 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
+            min-height: 300px;
         }
 
         .constellation-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-5px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
         }
 
         .constellation-image {
             flex: 1;
-            height: 300px;
-            background-size: contain; /* ← AQUÍ está el contain */
+            min-height: 250px;
+            background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             position: relative;
@@ -103,12 +114,15 @@
 
         .constellation-info {
             flex: 1;
-            padding: 40px;
+            padding: 30px;
             background: linear-gradient(135deg, #1565c0 0%, #0d47a1 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .constellation-name {
-            font-size: 2.5em;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: bold;
             margin-bottom: 20px;
             color: white;
@@ -116,9 +130,20 @@
         }
 
         .constellation-description {
-            font-size: 1.1em;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
             line-height: 1.6;
             color: #e3f2fd;
+        }
+
+        .constellation-description a {
+            color: #81c784;
+            text-decoration: none;
+            border-bottom: 1px solid #81c784;
+            transition: color 0.3s ease;
+        }
+
+        .constellation-description a:hover {
+            color: #a5d6a7;
         }
 
         /* Alternando posiciones */
@@ -139,7 +164,6 @@
         .luminica { background-image: url(images/contaminacionLuminica.webp); }
         .sinluminica { background-image: url(images/cielo-1.jpg); }
         .stelarium { background-image: url(images/Captura\ de\ pantalla\ 2025-08-23\ 122948.png); }
-        
 
         /* Efecto de overlay en las imágenes */
         .constellation-image::before {
@@ -152,40 +176,58 @@
             background: rgba(0, 0, 0, 0.2);
         }
 
+        .logo {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            max-width: 120px;
+            height: auto;
+            z-index: 3;
+        }
+
         footer {
             text-align: center;
-            padding: 40px 20px;
+            padding: 30px 20px;
             background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(10px);
-            margin-top: 60px;
-        }
-        
-        .logo{
-            display: flex;
-            align-items: flex-start;
-            height: 150px;
-            width: 150px;
+            margin-top: 40px;
+            font-size: clamp(0.8rem, 2vw, 1rem);
         }
 
-        .logo {
-        /* Posiciona el logo absolutamente dentro del header */
-        position: absolute;
-        /* Lo mueve a la derecha del contenedor padre */
-        left: 20px; 
-        /* Lo alinea verticalmente en el centro */
-        top: 50%;
-        /* Compensa la mitad de su propia altura para un centrado perfecto */
-        transform: translateY(-50%); 
+        /* Media Queries para diferentes dispositivos */
         
-        /* Hacemos el logo responsive */
-        max-width: 150px; /* Tamaño máximo para evitar que sea muy grande */
-        height: auto; /* Mantiene la proporción de la imagen */
+        /* Tablets y pantallas medianas */
+        @media (max-width: 1024px) {
+            .container {
+                padding: 20px 15px;
+            }
+            
+            .constellation-info {
+                padding: 25px;
+            }
+            
+            .logo {
+                max-width: 100px;
+                right: 15px;
+            }
         }
 
+        /* Móviles y pantallas pequeñas */
         @media (max-width: 768px) {
+            body {
+                background-attachment: scroll; /* Mejora el rendimiento en móviles */
+            }
+            
+            header {
+                padding: 15px 10px;
+                min-height: 100px;
+            }
+            
             .constellation-card {
                 flex-direction: column !important;
-                margin: 40px 0;
+                margin: 30px 0;
+                border-radius: 15px;
             }
 
             .constellation-card.reverse {
@@ -193,36 +235,116 @@
             }
 
             .constellation-image {
-                height: 200px;
+                min-height: 200px;
                 width: 100%;
+                order: 1;
             }
 
             .constellation-info {
-                padding: 30px 20px;
+                padding: 25px 20px;
+                order: 2;
             }
 
-            h1 {
-                font-size: 2.5em;
-                letter-spacing: 4px;
-            }
-
-            .constellation-name {
-                font-size: 2em;
+            .logo {
+                position: static;
+                transform: none;
+                max-width: 80px;
+                margin-bottom: 10px;
+                order: -1;
             }
             
-            .logo {
-            max-width: 100px; /* Reduce el tamaño del logo en móviles */
-            right: 10px; /* Reduce el margen derecho en pantallas más pequeñas */
+            .container {
+                padding: 15px 10px;
             }
         }
 
+        /* Móviles muy pequeños */
+        @media (max-width: 480px) {
+            header {
+                padding: 10px;
+            }
+            
+            .constellation-card {
+                margin: 20px 0;
+                border-radius: 10px;
+            }
+            
+            .constellation-image {
+                min-height: 180px;
+            }
+            
+            .constellation-info {
+                padding: 20px 15px;
+            }
+            
+            .logo {
+                max-width: 70px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            footer {
+                padding: 20px 10px;
+            }
+        }
 
+        /* Pantallas muy grandes */
+        @media (min-width: 1400px) {
+            .container {
+                max-width: 1400px;
+                padding: 60px 40px;
+            }
+            
+            .constellation-card {
+                margin: 80px 0;
+            }
+            
+            .constellation-info {
+                padding: 50px;
+            }
+        }
+
+        /* Orientación landscape en móviles */
+        @media (max-width: 768px) and (orientation: landscape) {
+            .constellation-image {
+                min-height: 150px;
+            }
+            
+            header {
+                min-height: 80px;
+            }
+        }
+
+        /* Mejoras para accesibilidad y UX */
+        @media (prefers-reduced-motion: reduce) {
+            .constellation-card {
+                transition: none;
+            }
+            
+            .constellation-card:hover {
+                transform: none;
+            }
+        }
+
+        /* Asegurar que el texto sea legible en pantallas pequeñas */
+        @media (max-width: 320px) {
+            .constellation-info {
+                padding: 15px 10px;
+            }
+            
+            .constellation-description {
+                font-size: 0.85rem;
+                line-height: 1.5;
+            }
+        }
     </style>
 </head>
 <body>
     <header>
-        <h1>Stem</h1>
         <img src="images/WhatsApp Image 2025-08-30 at 17.10.42_417c5b62.jpg" alt="logo" class="logo">
+        <h1>Stem</h1>
         <p class="subtitle">Un cielo limpio nos devuelve la magia de las constelaciones</p>
     </header>
 
@@ -282,37 +404,41 @@
             </div>
         </div>
 
+        <!-- Contaminación Lumínica -->
         <div class="constellation-card reverse">
             <div class="constellation-image luminica"></div>
             <div class="constellation-info">
-                <h2 class="constellation-name">Contaminacion Luminica</h2>
+                <h2 class="constellation-name">Contaminación Lumínica</h2>
                 <p class="constellation-description">
-                    las luces artificiales de las ciudades afectan a la observación del cielo, reduce la visibilidad de las estrellas ya que las luces artificiales reduce el contraste entre el cielo y los astros.
-                    También reduce la calidad de vision de los telescopios científicos, obligandolos a construir estos en lugares aislados.
-                    Tambien hace que los eventos nocturnos como las auroras boreales sean menos visibles
+                    Las luces artificiales de las ciudades afectan a la observación del cielo, reduce la visibilidad de las estrellas ya que las luces artificiales reducen el contraste entre el cielo y los astros.
+                    También reduce la calidad de visión de los telescopios científicos, obligándolos a construir estos en lugares aislados.
+                    También hace que los eventos nocturnos como las auroras boreales sean menos visibles.
                 </p>
             </div>
         </div>
 
+        <!-- Sin Contaminación Lumínica -->
         <div class="constellation-card">
             <div class="constellation-image sinluminica"></div>
             <div class="constellation-info">
-                <h2 class="constellation-name">Sin contaminacion luminica</h2>
+                <h2 class="constellation-name">Sin Contaminación Lumínica</h2>
                 <p class="constellation-description">
-                    Sin la interferencia de las luces artificiales, podríamos disfrutar de la belleza del cosmos en su máximo esplendor. Sería posible distinguir estrellas débiles y objetos celestes como nebulosas y galaxias que actualmente se ocultan bajo el brillo de las ciudades. 
+                    Sin la interferencia de las luces artificiales, podríamos disfrutar de la belleza del cosmos en su máximo esplendor. Sería posible distinguir estrellas débiles y objetos celestes como nebulosas y galaxias que actualmente se ocultan bajo el brillo de las ciudades.
                 </p>
             </div>
         </div>
 
+        <!-- Stellarium -->
         <div class="constellation-card reverse">
             <div class="constellation-image stelarium"></div>
             <div class="constellation-info">
                 <h2 class="constellation-name">Stellarium</h2>
                 <p class="constellation-description">
-                    Stellarium es un software libre que te permite observar todo el cielo estrellado de manera realista.
-                    link pagina web:<a href="https://stellarium-web.org/" target="_blank">https://stellarium-web.org/</a>
-                    link de descarga de diferentes dispositivos: <a href="https://stellarium.org/" target="_blank">https://stellarium.org/</a>
+                    Stellarium es un software libre que te permite observar todo el cielo estrellado de manera realista.<br><br>
+                    Link página web: <a href="https://stellarium-web.org/" target="_blank">https://stellarium-web.org/</a><br>
+                    Link de descarga para diferentes dispositivos: <a href="https://stellarium.org/" target="_blank">https://stellarium.org/</a>
                 </p>
+            </div>
         </div>
     </div>
 
